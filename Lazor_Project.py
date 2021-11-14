@@ -115,8 +115,153 @@ class Board():
                 break
         print("Iterations taken to solve the board: ", ITER)
 
+    def read_board(boardfile):
+    '''
+    This function is to read  file given in bff format
+    This file consists of the board, number of blocks of type A, B, and C,
+    lazors ( with their origin and direction), points of intersection
+    *** Parameters ***
+    boardfile - the name of the bff file
+    *** Returns ***
+    new_board - list of lists :board given in the bff file
+    reflect_blocks - number of reflect blocks in the board
+    opaque_blocks - number of absorb blocks in the board
+    refract_blocks -  number of refract blocks in the board
+    lazors - list of lists of all lazors consisting of orgins and direction
+    '''
+    split_line = [char for char in boardfile]
+    if split_line[-4:] != [".", "b", "f", "f"]:
+        raise Exception("File type is not .bff")
+    board = []
+    reflect_blocks = 0
+    opaque_blocks = 0
+    refract_blocks = 0
+    lazor_origin = []
+    points = []
+    '''
+    If no such file exists with this filename
+    '''
+    try:
+        board_read = open(boardfile, "r").read()
+    except UnboundLocalError:
+        print("There is no such file")
+    file_read = board_read.strip().split("\n")
+    start_found = 0
+    stop_found = 0
+    for i in range(len(file_read)):
+        if file_read[i] == "":
+            continue
+#        Raise an error if board has no START or STOP
+        if file_read[i] == "GRID START":
+            a = i + 1
+            start_found = 1
+            while file_read[a] != "GRID STOP":
+                board.append(file_read[a])
+                a = a + 1
+                if file_read[a + 1] == "GRID STOP":
+                    stop_found = 1
+        if file_read[i][0] == "A" and (
+                file_read[i][2] != "x") and file_read[i][2] != "o":
+            reflect_temp = []
+            if len(file_read[i]) > 3:
+                for j in range(2, len(file_read[i])):
+                    reflect_temp.append(file_read[i][j])
+                num_str_reflect = "".join(reflect_temp)
+                reflect_blocks = int(num_str_reflect)
+#                print("A",reflect_blocks)
+            else:
+                reflect_blocks = int(file_read[i][2])
+        if file_read[i][0] == "B" and (
+                file_read[i][2]) != "x" and file_read[i][2] != "o":
+            opaque_temp = []
+            if len(file_read[i]) > 3:
+                for j in range(2, len(file_read[i])):
+                    opaque_temp.append(file_read[i][j])
+                num_str_opaque = "".join(opaque_temp)
+                opaque_blocks = int(num_str_opaque)
+            else:
+                opaque_blocks = int(file_read[i][2])
+        if file_read[i][0] == "C" and (
+                file_read[i][2]) != "x" and file_read[i][2] != "o":
+            refract_temp = []
+            if len(file_read[i]) > 3:
+                for j in range(2, len(file_read[i])):
+                    refract_temp.append(file_read[i][j])
+                num_str_refract = "".join(refract_temp)
+                refract_blocks = int(num_str_refract)
+#                print("C",refract_blocks)
+            else:
+                refract_blocks = int(file_read[i][2])
+        if len(file_read[i]) != 0 and file_read[i][0] == "L":
+            strip_lazor = file_read[i].split(" ")
+            '''
+            Check for  wrong lazor input format
+            '''
+            if len(strip_lazor) != 5:
+                raise Exception("Wrong number of lazor origin points")
+            if strip_lazor[-2:] not in [["-1", "-1"], ["1", "1"], ["-1", "1"], ["1", "-1"]]:
+                raise Exception("Your direction for a lazor is not right")
 
-def create_grid(grid, permut):
+            for j in range(1, len(strip_lazor), 2):
+                lazor_origin.append(
+                    (int(strip_lazor[j]), int(strip_lazor[j + 1])))
+
+        if len(file_read[i]) != 0 and file_read[i][0] == "P":
+            points.append([int(file_read[i][2]), int(file_read[i][4])])
+    new_board = []
+    lazors = []
+
+    for i in range(int(len(lazor_origin) / 2)):
+        lazors.append([lazor_origin[2 * i], lazor_origin[2 * i + 1]])
+    for x in board:
+        lists = x.split()
+        new_board.append(lists)
+    '''
+    Check if noo board present in the .bff file
+    '''
+    if len(new_board) == 0:
+        raise Exception("There is no board in your file")
+    ocount = 0
+    for i in range(len(new_board)):
+        for j in range(len(new_board[0])):
+            if new_board[i][j] == 'o':
+                ocount = ocount + 1
+
+            '''
+            If random characters other than the ones mentioned
+            '''
+            if new_board[i][j].lower() not in ['x', 'o', 'a', 'c', 'b']:
+                raise Exception("Board has characters other than x and o")
+    # If more blocks than movable spaces
+    if (reflect_blocks + opaque_blocks + refract_blocks) > (ocount):
+        raise Exception("There are more blocks than there are movable spaces")
+    # If no blocks to place
+    if reflect_blocks == 0 and opaque_blocks == 0 and refract_blocks == 0:
+        raise Exception("Your file has no blocks in it to place")
+    # If lazor or points of intersection out of bounds
+    for i in range(len(lazors)):
+        if lazors[i][0][0] > 2 * len(new_board[0]) or lazors[i][0][0] < 0:
+            raise Exception("A lazor is out of the bounds of the boards")
+    for i in range(len(lazors)):
+        if lazors[i][0][1] > 2 * len(new_board) or lazors[i][0][0] < 0:
+            raise Exception("A lazor is out of the bounds of the boards")
+    for i in range(len(points)):
+        if points[i][0] > 2 * len(new_board[0]) or points[i][0] < 0:
+            raise Exception("A point is out of the bounds of the boards")
+    for i in range(len(points)):
+        if points[i][1] > 2 * len(new_board) or points[i][0] < 0:
+            raise Exception("A point is out of the bounds of the boards")
+    # If not enough lazors or points and check for that
+    if len(lazors) < 1:
+        raise Exception("No lasers found")
+    if len(points) < 1:
+        raise Exception("No point found")
+    if start_found == 0:
+        raise Exception("Start not found")
+    if stop_found == 0:
+        raise Exception("Stop not found")
+    return(new_board, reflect_blocks, opaque_blocks, refract_blocks, lazors, points)
+
     '''
     This function converts the permutaion of open game pieces
     into a list of lists which can represent board.
