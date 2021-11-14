@@ -110,7 +110,7 @@ class Board():
                 break
         print("Iteration took to solve: ", ITER)
 
-        def read_board(boardfile):
+    def read_board(boardfile):
     '''
     This function is to read  file given in bff format
     This file consists of the board, number of blocks of type A, B, and C,
