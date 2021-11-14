@@ -8,9 +8,8 @@ from sympy.utilities.iterables import multiset_permutations
 
 class Board():
     '''
-    This Class creates objects which represent the board
-    There are varyious boards with increasing difficulty
-    and have different no. and types of blocks
+    This class creates objects which represent
+    the Lazor game board needed to be solved.
     '''
 
     def __init__(
@@ -25,12 +24,10 @@ class Board():
         opaque_blocks - number of absorb blocks in the board
         redract_blocks -  number of refract blocks in the board
         lazors - list of lists of all lazors consisting of orgins and direction
-        eg. [[(1,3),(-1,-1)],[(2,4), (1,-1)]] - 2 lazors
-        L1 - origin (1,3), direction (-1,-1)
-        L2 - origin (2,4), direction (1, -1)
+        eg. [[(4,3),(-1,-1)],[(2,5), (1,-1)]] - 2 lazors
+        Lazor 1 - origin (4,3), direction (-1,-1)
+        Lazor 2 - origin (2,5), direction (1, -1)
         points- list of hole points that the lazor has to intersect
-        *** Returns ***
-        Nothing!
         '''
         self.board = board
         self.reflect = reflect_blocks
@@ -53,7 +50,13 @@ class Board():
 
     def Solver(self):
         '''
-
+        Based on the data read from the .bff file this function
+        first creats all possible permutations of the blocks on
+        the board then checks if the simulated board is the solution.
+        When the solution is found it displays the solution on the console
+        and stores the solution as a text file.
+        *** Parameters ***
+        self - all the data from the .bff file.
         '''
         # Maing a list of all open game pieces.
         game_pieces = []
@@ -79,10 +82,11 @@ class Board():
             ITER += 1
             Result, lazor_stack = lazor_path(possible_sol, self.L, points)
             if Result:
-                print("Congratulations!! Board Solved")
+                print("Board is Solved!!!")
                 solution = []
                 length = int((len(possible_sol) - 1) / 2)
                 width = int((len(possible_sol[0]) - 1) / 2)
+                print("Solution grid: \n")
                 for i in range(length):
                     solution.append([])
                     for j in range(width):
@@ -90,42 +94,46 @@ class Board():
                             possible_sol[2 * i + 1][2 * j + 1])
                         print(possible_sol[2 * i + 1][2 * j + 1], end=' ')
                     print()
-                print("This is the solution grid!")
-                print("OR just check the text file or image so created!")
                 GUI_board(self.board, solution,
-                          filename, self.L, self.P, lazor_stack)
-                fname1 = self.filename.split(".")[0]
-                fname = fname1 + "_solution_textfile.txt"
-                f = open(fname, "w+")
-                f.write("The solution to your board is: \n")
+                          self.filename, self.L, self.P, lazor_stack)
+                sol_txt = self.filename.split(".")[0]
+                sol_txt = sol_txt + "_solution.txt"
+                sol = open(sol_txt, "w+")
+                sol.write("The solution to your board is: \n")
                 for i in range(length):
                     for j in range(width):
-                        f.write(possible_sol[2 * i + 1][2 * j + 1])
-                        f.write(" ")
-                    f.write("\n")
-                f.write("A is the reflect block, B is the absorb ")
-                f.write("block and  C is the reflect block.\nThe o should ")
-                f.write("be empty.\nTry not to cheat next time :)")
-                f.close()
+                        sol.write(possible_sol[2 * i + 1][2 * j + 1])
+                        sol.write(" ")
+                    sol.write("\n")
+                sol.write("A represents the reflect block, ")
+                sol.write("B represents the absorb block ")
+                sol.write("and C represents the reflect block.\n")
+                sol.write("The o should be empty.\n")
+                sol.write("Try not to cheat next time :P")
+                sol.close()
+                print("The solution is also saved as a text file and image!")
                 break
-        print("Iteration took to solve: ", ITER)
+        print("Iterations taken to solve the board: ", ITER)
 
 
 def create_grid(grid, permut):
     '''
-        Creates a grid as explained in the top section for the given board
-        for eg. if board is 2 x 2 matrix
-        Board - o A
-                B o
-        Grid so generated - x x x x x
-                            x o x A x
-                            x x x x x
-                            x B x o x
-                            x x x x x
-        *** Parameters ***
-        self - consists of all data (board, A_blocks, B_blocks, C_blocks .. )
-        *** Returns ***
-        a (2n + 1) x (2m +1) matrix (grid) if board size is n x m
+    This function converts the permutaion of open game pieces
+    into a list of lists which can represent board.
+    eg,
+    Board -   o A
+              B o
+    for the above permut would be = ['o','A', 'B', 'o']
+    the grid generated by the function is shown below.
+    Grid so generated - x x x x x
+                        x o x A x
+                        x x x x x
+                        x B x o x
+                        x x x x x
+    *** Parameters ***
+    grid - List of lists representing the board provided in the
+           .bff file.
+    permut - List of game pieces.
     '''
     value = 0
     for i in range(len(grid)):
@@ -143,9 +151,9 @@ def boundary_check(grid, position, direc):
     If it is then we can continue with the lazor or else the lazor is dead
     as it crosses the boundary of the board/grid
     ** Parameters **
-    grid - List of Lists : consisting of the board on which the lazor moves
-    pos - Array : Current position of the lazor
-    direc - Array : Current direction of the lazor
+    grid - List of Lists representing the board
+    pos - array : Current position of the lazor
+    direc - array : Current direction of the lazor
     ** Returns **
     True or False - depending upon if the point is in or out of the boundary
     '''
@@ -163,19 +171,19 @@ def boundary_check(grid, position, direc):
 
 def next_step(grid, pos, direc):
     '''
-    This function is to calculate the next step the lazor will take
-    depending on the type of the block it intersects, and its position
+    This function determines the next step the lazor will take
+    depending on the type o fblock it intersects.
     *** Parameters ***
-    grid - List of lists : consisting of the board on which the lazor moves
-    pos - array : current position of the lazor
-    direc - array : current direction of the lazor
+    grid - List of lists representing the board
+    pos - array : Current position of the lazor
+    direc - array : Current direction of the lazor
     *** Returns ***
     new_dir = new direction the lazor is taking depending on the type
     of the block it interacts with and its orginal direction
     (-1, -1)             (1, -1)
-                 *
+                 @
     (-1, 1)               (1, 1)
-    * - is the current location of the lazor
+    @ - is the current location of the lazor
     and the 4 coordinates are it are the 4 directions possible
     for the movement of lazor
     '''
@@ -183,7 +191,8 @@ def next_step(grid, pos, direc):
     y = pos[1]
     if y % 2 == 0:
         '''
-        If y is even then block lies above or below
+        Based on how we have represented the board as a grid,
+        if y is even then block lies above or below
         '''
         if grid[y + direc[1]][x].lower() == 'o' or (
                 grid[y + direc[1]][x].lower() == 'x'):
@@ -198,7 +207,8 @@ def next_step(grid, pos, direc):
             new_dir = [direc_1[0], direc_1[1], direc_2[0], direc_2[1]]
     else:
         '''
-        If y is odd the block is left or right
+        Based on how we have represented the board as a grid,
+        if y is odd the block is left or right
         '''
         if grid[y][x + direc[0]].lower() == 'o' or (
                 grid[y][x + direc[0]].lower() == 'x'):
@@ -216,20 +226,15 @@ def next_step(grid, pos, direc):
 
 def lazor_path(grid, lazors, points):
     '''
-    This function is the main lazor solver for the given/ generated
-    board. The stack of lazors consists of the lazor path for all lazors
-    available. It is appending after each step all the lazors take.
-    If in their path they intersect the hole, that point is then removed
-    from the hole list. As soon as the whole list is empty, the while loop
-    breaks and it returns True i.e Solved; else the loop goes on till Maximum
-    Iterations are reached.
+    This function creats a stack of the path followed by the lazor
+    it also checks to see if all the sinks are intersected.
     *** Parameters ***
     grid - List of lists: consisting of the board on which the lazor moves
-    lazaors - Array: Consisting of origin and direction of each lazor
-    points - Array : consists of all the hole/sink points
+    lazaors - array : consisting of origin and direction of each lazor
+    points - array : consists of all the hole/sink points
     ***Returns***
-    lazor_stack - list of lists: having coordinates the lazor took to
-    reach the hole
+    lazor_stack - list of lists: The path followed by the lazor.
+    True or False - depending on wether all the sinks are intersected or not.
     '''
 
     # list of all lazors and and each lazor list has its path
