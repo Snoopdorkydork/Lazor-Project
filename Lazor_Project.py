@@ -200,12 +200,14 @@ def read_board(boardfile):
             '''
             if len(strip_lazor) != 5:
                 raise Exception("Wrong number of lazor origin points")
-            if strip_lazor[-2:] not in [["-1", "-1"], ["1", "1"], ["-1", "1"], ["1", "-1"]]:
+            if strip_lazor[-2:] not in [
+                ["-1", "-1"], ["1", "1"],
+                    ["-1", "1"], ["1", "-1"]]:
                 raise Exception("Your direction for a lazor is not right")
 
             for j in range(1, len(strip_lazor), 2):
                 lazor_origin.append(
-                    (int(strip_lazor[j]), int(strip_lazor[j + 1])))
+                    [int(strip_lazor[j]), int(strip_lazor[j + 1])])
 
         if len(file_read[i]) != 0 and file_read[i][0] == "P":
             points.append([int(file_read[i][2]), int(file_read[i][4])])
@@ -261,7 +263,9 @@ def read_board(boardfile):
         raise Exception("Start not found")
     if stop_found == 0:
         raise Exception("Stop not found")
-    return(new_board, reflect_blocks, opaque_blocks, refract_blocks, lazors, points)
+    return(
+        new_board, reflect_blocks, opaque_blocks,
+        refract_blocks, lazors, points)
 
 
 def create_grid(grid, permut):
