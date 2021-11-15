@@ -1,0 +1,7 @@
+The solution to your board is: 
+x o o 
+o B o 
+B B x 
+A represents the reflect block, B represents the absorb block and C represents the reflect block.
+The o should be empty.
+Try not to cheat next time :P
