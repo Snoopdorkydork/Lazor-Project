@@ -139,7 +139,7 @@ def GUI_board(original_board, solution_board, boardname,
         y1 = ori[1]
         a = x1 * 50
         b = y1 * 50
-        draw.ellipse([a - 5, b - 5, a + 5, b + 5], fill=(255, 0, 0))
+        draw.ellipse([a - 5, b - 5, a + 5, b + 5], fill=(255, 165, 0))
         draw.ellipse([a - 8, b - 8, a + 8, b + 8], outline=0, width=2)
     # Saving it as an original board
     img.save("%s_original_board.png" % (file_name))
@@ -163,14 +163,14 @@ def GUI_board(original_board, solution_board, boardname,
         y2 = y
         x1 = 0
         x2 = SIZE[0]
-        draw.line([x1, y1, x2, y2], fill=(255, 255, 255))
+        draw.line([x1, y1, x2, y2], fill=(255, 0, 0))
     # For Points
     for i in points:
         x1 = i[0]
         y1 = i[1]
         a = x1 * 50
         b = y1 * 50
-        draw.ellipse([a - 10, b - 10, a + 10, b + 10], fill=255)
+        draw.ellipse([a - 10, b - 10, a + 10, b + 10], fill=(255, 165, 0))
     # For Lazor Origins
     for j in lazors_origin:
         ori = j[0]
@@ -178,7 +178,7 @@ def GUI_board(original_board, solution_board, boardname,
         y1 = ori[1]
         a = x1 * 50
         b = y1 * 50
-        draw.ellipse([a - 5, b - 5, a + 5, b + 5], fill=(153, 0, 0))
+        draw.ellipse([a - 5, b - 5, a + 5, b + 5], fill=(255, 165, 0))
         draw.ellipse([a - 8, b - 8, a + 8, b + 8], outline=0, width=2)
     # For Lazor Path
     final_points = []
