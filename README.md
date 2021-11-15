@@ -20,9 +20,11 @@ The way the code solves a particular board is as such:
 
 We designed a grid for a given board, with each block in the board being a middle point on the block in a grid.
 
-x x x x x <br />
-x o x A x <br />
-x x x x x <br />
+x x x x x x x x <br />
+x x o x x x C x <br />
+x x x x A x x x <br />
+x x A x o x B x <br />
+x x x x x x x x <br />
 
 These are 2 blocks of the grid portraying two blocks of the board (o and A). <br />
 The Block function in the class Grid will create a random permutation of the available blocks and movable spaces in the grid and give this permuation to the lazor_path function to solve it. <br />
