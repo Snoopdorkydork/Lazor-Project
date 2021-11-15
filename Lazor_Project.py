@@ -724,7 +724,7 @@ def unit_test():
 
 
 if __name__ == "__main__":
-    filename = "dark_1.bff"
+    filename = "mad_1.bff"
     (board_given, reflect_blocks, opaque_blocks,
         refract_blocks, lazors, points) = read_board(filename)
     print("Welcome to the No Stress Lazor Solver ")
