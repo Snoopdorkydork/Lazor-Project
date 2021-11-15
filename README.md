@@ -35,14 +35,13 @@ The Block function in the class Grid will create a random permutation of the ava
 The axes are : horizontal direction is the x axis and vertical deriction is the y axis.
 The lazor_path checks if for the the given placement of blocks all the lazors hit all the sinks/ holes or not. As soon as it comes across the right grid, the simulation stops and it prints out the correct grid which is the solution to the board.
 
-For visual appeal we generated a GUI image (which will be saved in the same directory along with a txt file called solution_textfile.txt with the same information) for the solution where: <br />
+For visual appeal we generated an image (which will be saved in the same directory along with a txt file called solution_textfile.txt with the same information) for the solution where: <br />
 dark grey blocks as - empty positions (o's) <br />
 white blocks as - reflect blocks (A's) <br />
 black blocks as - absorb blocks (B's) <br />
 silver blocks as - refract blocks (C's) <br />
 
 Your board should be solved in a maximum of 2 min. Bigger or more complicated boards take longer time. <br />
-
 
 
 Master Branch has the final code. It also contains files for each board containing the given and output files so generated from the code. 
