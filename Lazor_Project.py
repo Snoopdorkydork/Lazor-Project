@@ -82,7 +82,7 @@ class Board():
             ITER += 1
             Result, lazor_stack = lazor_path(possible_sol, self.L, points)
             if Result:
-                print("Board is Solved!!!")
+                print("Board is Solved!!!\n")
                 solution = []
                 length = int((len(possible_sol) - 1) / 2)
                 width = int((len(possible_sol[0]) - 1) / 2)
