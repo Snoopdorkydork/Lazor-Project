@@ -1,4 +1,4 @@
-Here we will attempt to solve the toughest boards you dare to throw at us with our humble yet efficient code.
+Here we will attempt to solve the toughest boards you dare to throw at us.
 
 How do you use it?
 If you're having trouble solving a particular board, dont worry, just get it into a .bff file. The .bff file should contain:
@@ -11,9 +11,9 @@ A - Reflect block <br />
 B - Opaque block  <br />
 C - Refract block <br />
 L - Laser coordinates (origin and direction) <br />
-P - Hole/sink coordinates<br />
+P - Points of intersection <br />
 
-Once you've made your .bff file use the "Lazor_Project_Final_Code" to solve it. Insert the file name in line 801. (For your reference open any board folder in the master branch and use the .bff file for that board as a template)
+Once you've made your .bff file use the "Lazor_Project_Final_Code" to solve it. Insert the file name in line 727. (For your reference open any board folder in the master branch and use the .bff file for that board as a template)
 
 How does our method work?
 The way the code solves a particular board is as such:
