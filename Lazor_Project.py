@@ -415,3 +415,171 @@ def lazor_path(grid, lazors, points):
         return (True, lazor_stack)
     else:
         return (False, lazor_stack)
+
+
+def unit_test()
+
+# Check if the board read matches with the different board games run using assert
+# Baord: Dark_1.bff
+    grid = [['x', 'o', 'o'], ['o', 'o', 'o'], ['o', 'o', 'x']]
+    reflect_blocks = 0
+    opaque_blocks = 3
+    refract_blocks = 0
+    lazors = [[(3, 0), (-1, 1)], [(1, 6), (1, -1)],
+              [(3, 6), (-1, -1)], [(4, 3), (1, -1)]]
+    points = [[0, 3], [6, 1]]
+    solved_grid = [['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'x', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'B', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'B', 'x', 'B', 'x', 'x', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x']]
+    assert read_board("dark_1.bff") == (grid, reflect_blocks,
+                                        opaque_blocks, refract_blocks, lazors, points)
+    assert lazor_path(solved_grid, lazors, points)[0] == True
+    # Board: Mad_1.bff
+    grid = [['o', 'o', 'o', 'o'], ['o', 'o', 'o', 'o'],
+            ['o', 'o', 'o', 'o'], ['o', 'o', 'o', 'o']]
+    reflect_blocks = 2
+    opaque_blocks = 0
+    refract_blocks = 1
+    lazors = [[(2, 7), (1, -1)]]
+    points = [[3, 0], [4, 3], [2, 5], [4, 7]]
+    solved_grid = [['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'o', 'x', 'c', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'A', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'A', 'x', 'o', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']]
+    assert read_board("mad_1.bff") == (grid, reflect_blocks,
+                                       opaque_blocks, refract_blocks, lazors, points)
+    assert lazor_path(solved_grid, lazors, points)[0] == True
+    # Board: Mad_4.bff
+    grid = [['o', 'o', 'o', 'o'], ['o', 'o', 'o', 'o'],
+            ['o', 'o', 'o', 'o'], ['o', 'o', 'o', 'o'], ['o', 'o', 'o', 'o']]
+    reflect_blocks = 5
+    opaque_blocks = 0
+    refract_blocks = 0
+    lazors = [[(7, 2), (-1, 1)]]
+    points = [[3, 4], [7, 4], [5, 8]]
+    solved_grid = [['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'A', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'A', 'x', 'o', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'A', 'x', 'o', 'x', 'A', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'o', 'x', 'A', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']]
+    assert read_board("mad_4.bff") == (grid, reflect_blocks, opaque_blocks,
+                                       refract_blocks, lazors, points)
+    assert lazor_path(solved_grid, lazors, points)[0] == True
+    # Board: Mad_7.bff
+    grid = [['o', 'o', 'o', 'o', 'o'], ['o', 'o', 'o', 'o', 'o'],
+            ['o', 'o', 'o', 'o', 'x'], ['o', 'o', 'o', 'o', 'o'],
+            ['o', 'o', 'o', 'o', 'o']]
+    A_blocks = 6
+    B_blocks = 0
+    C_blocks = 0
+    lazors = [[(2, 1), (1, 1)], [(9, 4), (-1, 1)]]
+    hole = [[6, 3], [6, 5], [6, 7], [2, 9], [9, 6]]
+    solved_grid = [['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'o', 'x', 'A', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'A', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'A', 'x', 'o', 'x', 'A', 'x', 'o', 'x', 'x', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'o', 'x', 'o', 'x', 'A', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'o', 'x', 'A', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']]
+    assert read_baord("mad_7.bff") == (grid, reflect_blocks, opaque_blocks,
+                                       refract_blocks, lazors, points)
+    assert lazor_path(solved_grid, lazors, points)[0] == True
+    # Board: Numbered_6.bff
+    grid = [['o', 'o', 'o'], ['o', 'x', 'x'], ['o', 'o', 'o'],
+            ['o', 'x', 'o'], ['o', 'o', 'o']]
+    reflect_blocks = 3
+    opaque_blocks = 3
+    refract_blocks = 0
+    lazors = [[(4, 9), (-1, -1)], [(6, 9), (-1, -1)]]
+    points = [[2, 5], [5, 0]]
+    solved_grid = [['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'B', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'A', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'B', 'x', 'o', 'x', 'A', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'A', 'x', 'x', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'B', 'x', 'o', 'x', 'o', 'x']]
+    assert read_board("numbered_6.bff") == (grid, reflect_blocks, opaque_blocks,
+                                            refract_blocks, lazors, points)
+    assert lazor_path(solved_grid, lazors, points)[0] == True
+    # Showstopper_4.bff
+    grid = [['B', 'o', 'o'], ['o', 'o', 'o'], ['o', 'o', 'o']]
+    reflect_blocks = 3
+    opaque_blocks = 3
+    refract_blocks = 0
+    lazors = [[(3, 6), (-1, -1)]]
+    points = [[2, 3]]
+    solved_grid = [['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'B', 'x', 'A', 'x', 'B', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'B', 'x', 'o', 'x', 'A', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'A', 'x', 'o', 'x', 'B', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x']]
+    assert read_board("showstopper_4.bff") == (grid, reflect_blocks, opaque_blocks,
+                                               refract_blocks, lazors, points)
+    assert lazor_path(solved_grid, lazors, points)[0] == True
+    # Board: Tiny_5.bff
+    grid = [['o', 'B', 'o'], ['o', 'o', 'o'], ['o', 'o', 'o']]
+    reflect_blocks = 3
+    opaque_blocks = 0
+    refract_blocks = 1
+    lazors = [[(4, 5), (-1, -1)]]
+    points = [[1, 2], [6, 3]]
+    solved_grid = [['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'A', 'x', 'B', 'x', 'A', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'A', 'x', 'C', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x']]
+    assert read_board("tiny_5.bff") == (grid, reflect_blocks, opaque_blocks,
+                                        refract_blocks, lazors, points)
+    assert lazor_path(solved_grid, lazors, points)[0] == True
+    # Board: Yarn_5.bff
+    grid = [['o', 'B', 'x', 'o', 'o'], ['o', 'o', 'o', 'o', 'o'],
+            ['o', 'x', 'o', 'o', 'o'], ['o', 'x', 'o', 'o', 'x'],
+            ['o', 'o', 'x', 'x', 'o'], ['B', 'o', 'x', 'o', 'o']]
+    reflect_blocks = 8
+    opaque_blocks = 0
+    refract_blocks = 0
+    lazors = [[(4, 1), (1, 1)]]
+    points = [[6, 9], [9, 2]]
+    solved_grid = [['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'B', 'x', 'x', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'A', 'x', 'o', 'x', 'o', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'A', 'x', 'x', 'x', 'o', 'x', 'o', 'x', 'A', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'o', 'x', 'x', 'x', 'A', 'x', 'o', 'x', 'x', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'A', 'x', 'o', 'x', 'x', 'x', 'x', 'x', 'A', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+                   ['x', 'B', 'x', 'A', 'x', 'x', 'x', 'A', 'x', 'o', 'x'],
+                   ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x']]
+    assert read_board("yarn_5.bff") == (grid, reflect_blocks, opaque_blocks,
+                                        refract_blocks, lazors, points)
+    assert lazor_path(solved_grid, lazors, points)[0] == True
