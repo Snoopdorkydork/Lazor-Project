@@ -163,7 +163,7 @@ def GUI_board(original_board, solution_board, boardname,
         y2 = y
         x1 = 0
         x2 = SIZE[0]
-        draw.line([x1, y1, x2, y2], fill=(255, 0, 0))
+        draw.line([x1, y1, x2, y2], fill=(255, 255, 255))
     # For Points
     for i in points:
         x1 = i[0]
@@ -189,6 +189,6 @@ def GUI_board(original_board, solution_board, boardname,
                 stack_lazors[i][j][0] = [element * 50 for element in stack_lazors[i][j][0]]
                 final_points[i].append(tuple(stack_lazors[i][j][0]))
     for i in final_points:
-        draw.line(i, fill=255, width=2)
+        draw.line(i, fill=(255, 0, 0), width=2)
     # Saving the solution boards
     img.save("%s_solution.png" % (file_name))
