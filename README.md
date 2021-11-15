@@ -20,13 +20,17 @@ The way the code solves a particular board is as such:
 
 We designed a grid for a given board, with each block in the board being a middle point on the block in a grid.
 
-x x x x x x x x <br />
-x x o x x x C x <br />
-x x x x A x x x <br />
-x x A x o x B x <br />
-x x x x x x x x <br />
+x x x x x x x x x <br />
+x o x x x x x x x <br />
+x A x x x x x C x <br />
+x x x x x x x x x <br />
+x x x x o x x x x <br />
+x x x x x x x x x <br />
+x x x x x x A x x <br />
+x B x x x x x x x <br />
+x x x x x x x x x <br />
 
-These are 2 blocks of the grid portraying two blocks of the board (o and A). <br />
+These are different  blocks of the grid portraying different blocks of the board (o, A, B, C). <br />
 The Block function in the class Grid will create a random permutation of the available blocks and movable spaces in the grid and give this permuation to the lazor_path function to solve it. <br />
 The axes are : horizontal direction is the x axis and vertical deriction is the y axis.
 The lazor_path checks if for the the given placement of blocks all the lazors hit all the sinks/ holes or not. As soon as it comes across the right grid, the simulation stops and it prints out the correct grid which is the solution to the board.
