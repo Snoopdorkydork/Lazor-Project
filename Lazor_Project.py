@@ -82,7 +82,7 @@ class Board():
             ITER += 1
             Result, lazor_stack = lazor_path(possible_sol, self.L, points)
             if Result:
-                print("Board is Solved!!!\n")
+                print("\nThe board is Solved!!!\n")
                 solution = []
                 length = int((len(possible_sol) - 1) / 2)
                 width = int((len(possible_sol[0]) - 1) / 2)
@@ -111,9 +111,9 @@ class Board():
                 sol.write("The o should be empty.\n")
                 sol.write("Try not to cheat next time :P")
                 sol.close()
-                print("The solution is also saved as a text file and image!")
+                print("\nThe solution is also saved as a text file and image!")
                 break
-        print("Iterations taken to solve the board: ", ITER)
+        print("\nIterations taken to solve the board: ", ITER)
 
 
 def read_board(boardfile):
@@ -545,15 +545,15 @@ if __name__ == "__main__":
     (board_given, reflect_blocks, opaque_blocks,
         refract_blocks, lazors, points) = read_board(filename)
     print("Welcome to the No Stress Lazor Solver ")
-    print("Given Board :- ")
+    print("Given Board :\n ")
     for y in board_given:
         for x in y:
             print(x, end=' ')
         print()
-    print("Type of Blocks given:\n")
-    print("Reflective blocks - %d \n" % (reflect_blocks))
-    print("Opaque blocks - %d\n" % opaque_blocks)
-    print("Refractive blocks - %d \n" % refract_blocks)
+    print("\nType of Blocks given:")
+    print("Reflective blocks - %d" % (reflect_blocks))
+    print("Opaque blocks - %d" % opaque_blocks)
+    print("Refractive blocks - %d" % refract_blocks)
     unit_test()
     time_start = time.time()
     Board = Board(
@@ -561,4 +561,4 @@ if __name__ == "__main__":
         refract_blocks, lazors, points, filename)
     Board.Solver(filename)
     time_end = time.time()
-    print('Run time: %f seconds' % (time_end - time_start))
+    print('\nRun time: %f seconds' % (time_end - time_start))
