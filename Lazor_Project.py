@@ -418,7 +418,6 @@ def lazor_path(grid, lazors, points):
 
 
 def unit_test()
-
 # Check if the board read matches with the different board games run using assert
 # Baord: Dark_1.bff
     grid = [['x', 'o', 'o'], ['o', 'o', 'o'], ['o', 'o', 'x']]
