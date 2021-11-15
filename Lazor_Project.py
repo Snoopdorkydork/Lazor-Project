@@ -32,6 +32,8 @@ So now it's easy to mathematically have a coordinate system for the grid with
  white blocks as - reflect blocks (A's)
  black blocks as - opaque blocks (B's)
  grey blocks as - refract blocks (C's)
+ orange points - Points of intersection
+ green points - Lazer starting point
 '''
 
 import time
