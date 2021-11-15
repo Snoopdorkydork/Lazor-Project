@@ -115,7 +115,8 @@ class Board():
                 break
         print("Iterations taken to solve the board: ", ITER)
 
-    def read_board(boardfile):
+
+def read_board(boardfile):
     '''
     This function is to read  file given in bff format
     This file consists of the board, number of blocks of type A, B, and C,
@@ -262,6 +263,8 @@ class Board():
         raise Exception("Stop not found")
     return(new_board, reflect_blocks, opaque_blocks, refract_blocks, lazors, points)
 
+
+def create_grid(grid, permut):
     '''
     This function converts the permutaion of open game pieces
     into a list of lists which can represent board.
